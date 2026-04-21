@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rentsel — Depozitosuz Kiralama · Türkiye'nin Kira Depozito Sigortası</title>
+<meta name="description" content="Türkiye'de yasal 3 aylık depozito (₺75.000–₺120.000) yerine aylık küçük prim. Mülk sahipleri için enflasyona karşı korunan hasar teminatı. Beta için erken erişim.">
+
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+
+  :root{
+    --coral:#FF5035;
+    --coral-dark:#E03D24;
+    --coral-pale:#FFF0EE;
+    --coral-pale2:#FFE5E0;
+    --navy:#1B2B4B;
+    --navy-light:#2A3B5F;
+    --off:#FAF9F7;
+    --gray1:#F4F3F1;
+    --gray2:#E8E6E3;
+    --gray3:#D6D2CD;
+    --gray4:#B0ABA5;
+    --gray6:#6B6660;
+    --gray9:#1A1816;
+    --green:#1F7A3E;
+    --font:'DM Sans',-apple-system,sans-serif;
+    --max:1200px;
+    --pad-x:clamp(20px,5vw,48px);
+  }
+
+  html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+  body{
+    font-family:var(--font);
+    background:var(--off);
+    color:var(--gray9);
+    line-height:1.55;
+    overflow-x:hidden;
+  }
+
+  a{color:inherit;text-decoration:none}
+  button{font-family:var(--font);cursor:pointer;border:none}
+  img{display:block;max-width:100%}
+
+  /* ── REUSABLE ── */
+  .container{max-width:var(--max);margin:0 auto;padding-left:var(--pad-x);padding-right:var(--pad-x)}
+  .eyebrow{
+    font-size:11px;letter-spacing:2.5px;text-transform:uppercase;
+    color:var(--gray4);font-weight:500;
+  }
+  .eyebrow-coral{color:var(--coral)}
+
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:14px 26px;border-radius:12px;
+    font-size:15px;font-weight:500;letter-spacing:-0.2px;
+    transition:transform .18s ease,box-shadow .18s ease,background .18s ease;
+    white-space:nowrap;
+  }
+  .btn-primary{background:var(--coral);color:#fff;box-shadow:0 1px 0 rgba(0,0,0,0.04),0 8px 24px -8px rgba(255,80,53,0.5)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 1px 0 rgba(0,0,0,0.04),0 14px 32px -10px rgba(255,80,53,0.6);background:var(--coral-dark)}
+  .btn-ghost{background:transparent;color:var(--gray9);border:1.5px solid var(--gray2)}
+  .btn-ghost:hover{border-color:var(--gray9);background:#fff}
+  .btn-white{background:#fff;color:var(--coral)}
+  .btn-white:hover{transform:translateY(-2px);box-shadow:0 14px 32px -10px rgba(0,0,0,0.3)}
+  .btn-outline-white{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,0.3)}
+  .btn-outline-white:hover{border-color:#fff;background:rgba(255,255,255,0.08)}
+
+  /* ── HEADER ── */
+  header{
+    position:sticky;top:0;z-index:100;
+    background:rgba(255,255,255,0.92);
+    backdrop-filter:saturate(180%) blur(12px);
+    -webkit-backdrop-filter:saturate(180%) blur(12px);
+    border-bottom:1px solid var(--gray2);
+  }
+  .nav-inner{
+    height:68px;display:flex;align-items:center;justify-content:space-between;
+  }
+  .logo{display:flex;align-items:center;gap:11px}
+  .logo-icon{
+    width:36px;height:36px;background:var(--coral);
+    border-radius:9px;display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+  }
+  .logo-icon span{
+    color:#fff;font-weight:700;font-size:22px;
+    letter-spacing:-0.04em;line-height:1;
+  }
+  .logo-word{
+    font-size:24px;font-weight:700;color:var(--coral);
+    letter-spacing:-1.2px;line-height:1;
+  }
+  .nav-links{display:flex;align-items:center;gap:30px}
+  .nav-links a{
+    font-size:14px;font-weight:500;color:var(--gray9);
+    opacity:.7;transition:opacity .15s,color .15s;letter-spacing:-.2px;
+  }
+  .nav-links a:hover{opacity:1;color:var(--coral)}
+  .menu-btn{display:none;background:transparent;color:var(--gray9);font-size:20px;padding:8px}
+  @media (max-width:880px){
+    .nav-links a:not(.btn){display:none}
+    .menu-btn{display:block}
+  }
+
+  /* ── HERO ── */
+  .hero{
+    background:var(--off);
+    padding:80px 0 100px;
+    position:relative;overflow:hidden;
+  }
+  .hero::before{
+    content:'';position:absolute;
+    top:-100px;right:-200px;width:600px;height:600px;
+    background:radial-gradient(circle,var(--coral-pale) 0%,transparent 65%);
+    opacity:.7;pointer-events:none;
+  }
+  .hero::after{
+    content:'';position:absolute;
+    bottom:-200px;left:-200px;width:500px;height:500px;
+    background:radial-gradient(circle,#FFF8DC 0%,transparent 65%);
+    opacity:.5;pointer-events:none;
+  }
+  .hero-inner{position:relative;z-index:1;text-align:center;max-width:880px;margin:0 auto}
+  .hero-eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    background:#fff;border:1px solid var(--gray2);
+    padding:8px 16px;border-radius:100px;
+    margin-bottom:32px;
+    font-size:12px;font-weight:500;color:var(--gray6);letter-spacing:-.1px;
+  }
+  .hero-dot{width:6px;height:6px;background:var(--coral);border-radius:50%;animation:pulse 2s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.4)}}
+
+  h1.hero-title{
+    font-size:clamp(38px,6.5vw,72px);
+    font-weight:700;
+    letter-spacing:-2.4px;
+    line-height:1.02;
+    margin-bottom:28px;
+    color:var(--gray9);
+  }
+  h1.hero-title .accent{color:var(--coral);position:relative;display:inline-block}
+  h1.hero-title .accent::after{
+    content:'';position:absolute;left:0;right:0;bottom:6px;height:14px;
+    background:var(--coral-pale);z-index:-1;border-radius:4px;
+  }
+
+  .hero-sub{
+    font-size:clamp(16px,1.6vw,19px);
+    color:var(--gray6);
+    max-width:680px;margin:0 auto 40px;
+    letter-spacing:-.2px;line-height:1.55;
+  }
+  .hero-ctas{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-bottom:24px}
+  .hero-trust{font-size:12px;color:var(--gray4);letter-spacing:-.1px}
+
+  /* ── SOCIAL PROOF BAND ── */
+  .stats{
+    background:#fff;
+    border-top:1px solid var(--gray2);
+    border-bottom:1px solid var(--gray2);
+    padding:48px 0;
+  }
+  .stats-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:32px;
+    align-items:center;
+  }
+  .stat{text-align:center}
+  .stat-num{
+    font-size:clamp(28px,3.5vw,42px);font-weight:700;
+    color:var(--coral);letter-spacing:-1.4px;line-height:1;margin-bottom:8px;
+  }
+  .stat-lbl{
+    font-size:13px;color:var(--gray6);letter-spacing:-.2px;
+    max-width:240px;margin:0 auto;line-height:1.4;
+  }
+  @media (max-width:720px){
+    .stats-grid{grid-template-columns:1fr;gap:32px}
+    .stats{padding:36px 0}
+  }
+
+  /* ── PROBLEM SECTION ── */
+  .problem{padding:120px 0 100px;background:var(--off);position:relative}
+  .problem-inner{max-width:880px;margin:0 auto;text-align:center}
+  .section-eyebrow{margin-bottom:18px;display:block}
+  h2.section-title{
+    font-size:clamp(30px,4.4vw,48px);font-weight:700;
+    letter-spacing:-1.4px;line-height:1.1;margin-bottom:32px;color:var(--gray9);
+  }
+  .problem-text{
+    font-size:17px;color:var(--gray6);line-height:1.7;
+    margin-bottom:24px;letter-spacing:-.1px;text-align:left;
+  }
+  .problem-text:last-of-type{margin-bottom:48px}
+  .callout{
+    background:#fff;border:1px solid var(--gray2);
+    padding:32px 36px;border-radius:16px;
+    border-left:4px solid var(--coral);
+    text-align:left;
+    box-shadow:0 1px 0 rgba(0,0,0,0.02),0 12px 28px -16px rgba(27,43,75,0.12);
+  }
+  .callout strong{color:var(--coral);font-weight:700}
+  .callout-text{font-size:18px;color:var(--gray9);letter-spacing:-.2px;line-height:1.5}
+
+  /* ── HOW IT WORKS ── */
+  .how{padding:120px 0;background:#fff;border-top:1px solid var(--gray2)}
+  .how-header{text-align:center;margin-bottom:72px}
+  .how-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:28px;
+    position:relative;
+  }
+  .how-step{
+    background:var(--off);border:1px solid var(--gray2);
+    border-radius:20px;padding:36px 32px;
+    transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease;
+    position:relative;
+  }
+  .how-step:hover{transform:translateY(-4px);box-shadow:0 24px 48px -20px rgba(27,43,75,0.15);border-color:var(--coral)}
+  .step-num{
+    font-size:13px;font-weight:700;color:var(--coral);
+    letter-spacing:1.5px;margin-bottom:18px;display:inline-block;
+    background:var(--coral-pale);padding:6px 12px;border-radius:6px;
+  }
+  .step-title{
+    font-size:22px;font-weight:700;color:var(--gray9);
+    letter-spacing:-.6px;line-height:1.2;margin-bottom:12px;
+  }
+  .step-text{font-size:15px;color:var(--gray6);line-height:1.6;letter-spacing:-.1px}
+  @media (max-width:880px){
+    .how-grid{grid-template-columns:1fr;gap:18px}
+  }
+
+  /* ── TENANT SECTION ── */
+  .tenant{padding:120px 0;background:var(--coral-pale);position:relative;overflow:hidden}
+  .tenant::before{
+    content:'';position:absolute;top:-200px;right:-150px;width:500px;height:500px;
+    background:radial-gradient(circle,#fff 0%,transparent 70%);
+    opacity:.5;pointer-events:none;
+  }
+  .two-col{
+    display:grid;grid-template-columns:1.1fr 1fr;gap:64px;align-items:center;
+    position:relative;z-index:1;
+  }
+  .col-text h2{margin-bottom:24px}
+  .col-text p{
+    font-size:16px;color:var(--gray6);line-height:1.7;
+    margin-bottom:20px;letter-spacing:-.1px;
+  }
+  .check-list{list-style:none;display:flex;flex-direction:column;gap:14px;margin-top:32px}
+  .check-list li{
+    display:flex;align-items:flex-start;gap:14px;
+    font-size:15px;color:var(--gray9);letter-spacing:-.1px;line-height:1.5;
+  }
+  .check{
+    width:22px;height:22px;background:var(--coral);
+    border-radius:50%;display:inline-flex;align-items:center;justify-content:center;
+    flex-shrink:0;margin-top:1px;
+  }
+  .check::after{content:'';width:8px;height:5px;border-left:2px solid #fff;border-bottom:2px solid #fff;transform:rotate(-45deg) translate(0,-1px)}
+
+  /* Calculator card */
+  .calc{
+    background:#fff;border-radius:20px;padding:32px;
+    box-shadow:0 1px 0 rgba(0,0,0,0.02),0 24px 64px -24px rgba(27,43,75,0.18);
+  }
+  .calc-title{
+    font-size:13px;font-weight:500;color:var(--gray6);
+    letter-spacing:-.1px;margin-bottom:8px;
+  }
+  .calc-input-wrap{position:relative;margin-bottom:28px}
+  .calc-input{
+    width:100%;font-family:var(--font);
+    font-size:32px;font-weight:700;color:var(--gray9);
+    background:var(--off);border:1.5px solid var(--gray2);
+    border-radius:12px;padding:18px 22px 18px 50px;
+    letter-spacing:-1px;outline:none;transition:border-color .15s;
+  }
+  .calc-input:focus{border-color:var(--coral)}
+  .calc-input-prefix{
+    position:absolute;left:22px;top:50%;transform:translateY(-50%);
+    font-size:32px;font-weight:700;color:var(--gray4);letter-spacing:-1px;pointer-events:none;
+  }
+  .calc-results{display:flex;flex-direction:column;gap:14px}
+  .calc-row{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:14px 0;border-bottom:1px solid var(--gray2);
+  }
+  .calc-row:last-child{border-bottom:none}
+  .calc-row-lbl{font-size:14px;color:var(--gray6);letter-spacing:-.1px}
+  .calc-row-val{font-size:18px;font-weight:700;color:var(--gray9);letter-spacing:-.4px}
+  .calc-row.highlight{background:var(--coral-pale);margin:0 -18px;padding:14px 18px;border-radius:10px;border:none}
+  .calc-row.highlight .calc-row-lbl{color:var(--coral);font-weight:500}
+  .calc-row.highlight .calc-row-val{color:var(--coral);font-size:22px}
+  .calc-note{font-size:11px;color:var(--gray4);margin-top:14px;letter-spacing:-.1px}
+
+  @media (max-width:880px){
+    .two-col{grid-template-columns:1fr;gap:48px}
+  }
+
+  /* ── LANDLORD SECTION ── */
+  .landlord{padding:120px 0;background:var(--off)}
+  .landlord .two-col{grid-template-columns:1fr 1.1fr}
+  @media (max-width:880px){.landlord .two-col{grid-template-columns:1fr}}
+
+  .info-box{
+    background:#fff;border:1px solid var(--gray2);
+    border-radius:16px;padding:28px;
+    border-left:4px solid var(--navy);
+    margin-top:24px;
+  }
+  .info-box-title{
+    font-size:13px;font-weight:700;color:var(--navy);
+    letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;
+  }
+  .info-box-text{font-size:15px;color:var(--gray9);line-height:1.6;letter-spacing:-.1px}
+
+  .scope-card{
+    background:var(--navy);color:#fff;border-radius:20px;
+    padding:32px;
+  }
+  .scope-card h3{
+    font-size:18px;font-weight:700;letter-spacing:-.3px;margin-bottom:14px;color:#fff;
+  }
+  .scope-card p{font-size:14px;color:rgba(255,255,255,0.75);line-height:1.6;margin-bottom:0}
+
+  .visual-card{
+    background:#fff;border-radius:20px;padding:36px;
+    box-shadow:0 1px 0 rgba(0,0,0,0.02),0 24px 64px -24px rgba(27,43,75,0.18);
+  }
+  .visual-card-eyebrow{
+    font-size:11px;letter-spacing:2.5px;text-transform:uppercase;
+    color:var(--coral);font-weight:700;margin-bottom:16px;
+  }
+  .compare-row{
+    display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px;
+  }
+  .compare-card{
+    padding:20px;border-radius:14px;border:1px solid var(--gray2);
+  }
+  .compare-card.bad{background:var(--off)}
+  .compare-card.good{background:var(--coral-pale);border-color:var(--coral)}
+  .compare-yr{
+    font-size:11px;letter-spacing:1px;text-transform:uppercase;
+    color:var(--gray4);font-weight:700;margin-bottom:8px;
+  }
+  .compare-card.good .compare-yr{color:var(--coral)}
+  .compare-amt{
+    font-size:24px;font-weight:700;color:var(--gray9);
+    letter-spacing:-.6px;margin-bottom:4px;line-height:1;
+  }
+  .compare-card.good .compare-amt{color:var(--coral)}
+  .compare-desc{font-size:12px;color:var(--gray6);line-height:1.4}
+  .compare-arrow{
+    text-align:center;font-size:28px;color:var(--coral);font-weight:300;margin:18px 0 4px;
+  }
+  .visual-bottom{
+    margin-top:24px;padding-top:20px;border-top:1px solid var(--gray2);
+    font-size:13px;color:var(--gray6);line-height:1.5;letter-spacing:-.1px;
+  }
+
+  /* ── PARTNERS SECTION ── */
+  .partners{
+    padding:120px 0;background:var(--navy);color:#fff;
+    position:relative;overflow:hidden;
+  }
+  .partners::before{
+    content:'';position:absolute;
+    top:-300px;right:-200px;width:700px;height:700px;
+    background:radial-gradient(circle,var(--coral) 0%,transparent 60%);
+    opacity:.13;pointer-events:none;
+  }
+  .partners h2{color:#fff;text-align:center;max-width:760px;margin:0 auto 24px}
+  .partners-intro{
+    text-align:center;font-size:17px;color:rgba(255,255,255,0.7);
+    max-width:720px;margin:0 auto 64px;letter-spacing:-.1px;line-height:1.6;
+  }
+  .partner-grid{
+    display:grid;grid-template-columns:repeat(2,1fr);gap:24px;
+    max-width:920px;margin:0 auto 48px;
+  }
+  .partner-card{
+    background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);
+    border-radius:18px;padding:32px;
+    transition:background .25s,border-color .25s,transform .25s;
+  }
+  .partner-card:hover{background:rgba(255,255,255,0.07);border-color:var(--coral);transform:translateY(-3px)}
+  .partner-card h3{
+    font-size:20px;font-weight:700;color:#fff;margin-bottom:14px;
+    letter-spacing:-.4px;
+  }
+  .partner-card p{
+    font-size:14px;color:rgba(255,255,255,0.65);line-height:1.6;letter-spacing:-.1px;
+  }
+  .partners-cta{text-align:center}
+  .partners-cta-line{font-size:13px;color:rgba(255,255,255,0.5);margin-top:14px;letter-spacing:-.1px}
+  @media (max-width:720px){.partner-grid{grid-template-columns:1fr}}
+
+  /* ── WHY RENTSEL ── */
+  .why{padding:120px 0;background:#fff}
+  .why-header{text-align:center;margin-bottom:72px;max-width:760px;margin-left:auto;margin-right:auto}
+  .why-grid{
+    display:grid;grid-template-columns:repeat(2,1fr);gap:24px;
+  }
+  .why-card{
+    background:var(--off);border:1px solid var(--gray2);
+    border-radius:20px;padding:36px 32px;
+    transition:transform .25s,border-color .25s;
+  }
+  .why-card:hover{transform:translateY(-3px);border-color:var(--coral)}
+  .why-icon{
+    width:48px;height:48px;background:var(--coral-pale);
+    border-radius:12px;display:flex;align-items:center;justify-content:center;
+    margin-bottom:18px;
+  }
+  .why-icon svg{width:24px;height:24px;color:var(--coral)}
+  .why-card h3{font-size:18px;font-weight:700;color:var(--gray9);letter-spacing:-.3px;margin-bottom:8px}
+  .why-card p{font-size:14px;color:var(--gray6);line-height:1.6;letter-spacing:-.1px}
+  @media (max-width:720px){.why-grid{grid-template-columns:1fr}}
+
+  /* ── FAQ ── */
+  .faq{padding:120px 0;background:var(--off)}
+  .faq-header{text-align:center;margin-bottom:60px}
+  .faq-list{max-width:780px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+  details.faq-item{
+    background:#fff;border:1px solid var(--gray2);border-radius:14px;
+    padding:0;overflow:hidden;transition:border-color .2s,box-shadow .2s;
+  }
+  details.faq-item[open]{border-color:var(--coral);box-shadow:0 12px 28px -16px rgba(27,43,75,0.12)}
+  details.faq-item summary{
+    list-style:none;cursor:pointer;
+    padding:22px 28px;display:flex;justify-content:space-between;align-items:center;gap:24px;
+    font-size:16px;font-weight:500;color:var(--gray9);letter-spacing:-.2px;
+  }
+  details.faq-item summary::-webkit-details-marker{display:none}
+  .faq-toggle{
+    width:24px;height:24px;background:var(--gray1);border-radius:50%;
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+    color:var(--gray9);font-size:18px;font-weight:300;
+    transition:transform .2s,background .2s;
+  }
+  details.faq-item[open] .faq-toggle{transform:rotate(45deg);background:var(--coral);color:#fff}
+  .faq-body{
+    padding:0 28px 24px;font-size:14px;color:var(--gray6);line-height:1.7;letter-spacing:-.1px;
+  }
+
+  /* ── FINAL CTA ── */
+  .final-cta{
+    padding:120px 0;background:var(--coral);color:#fff;
+    position:relative;overflow:hidden;
+  }
+  .final-cta::before{
+    content:'';position:absolute;top:-150px;left:-150px;width:400px;height:400px;
+    background:radial-gradient(circle,#fff 0%,transparent 70%);
+    opacity:.12;pointer-events:none;
+  }
+  .final-cta::after{
+    content:'';position:absolute;bottom:-200px;right:-200px;width:500px;height:500px;
+    background:radial-gradient(circle,#fff 0%,transparent 70%);
+    opacity:.08;pointer-events:none;
+  }
+  .final-inner{position:relative;z-index:1;max-width:680px;margin:0 auto;text-align:center}
+  .final-cta h2{color:#fff;margin-bottom:16px;font-size:clamp(32px,4.6vw,52px);letter-spacing:-1.6px}
+  .final-cta .subtext{font-size:18px;color:rgba(255,255,255,0.85);margin-bottom:40px;letter-spacing:-.2px;line-height:1.5}
+
+  .signup-form{
+    background:#fff;border-radius:18px;padding:8px;
+    display:flex;align-items:center;gap:8px;
+    max-width:520px;margin:0 auto 24px;
+    box-shadow:0 24px 64px -24px rgba(0,0,0,0.3);
+  }
+  .signup-form input{
+    flex:1;padding:14px 18px;border:none;outline:none;
+    font-family:var(--font);font-size:15px;color:var(--gray9);
+    background:transparent;letter-spacing:-.1px;
+  }
+  .signup-form input::placeholder{color:var(--gray4)}
+  .signup-form button{
+    padding:14px 24px;background:var(--coral);color:#fff;
+    border-radius:12px;font-size:14px;font-weight:500;
+    transition:background .15s,transform .15s;letter-spacing:-.1px;
+  }
+  .signup-form button:hover{background:var(--coral-dark);transform:translateY(-1px)}
+
+  .role-picker{
+    display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:18px;
+  }
+  .role-pill{
+    padding:8px 18px;background:rgba(255,255,255,0.12);
+    border:1px solid rgba(255,255,255,0.2);border-radius:100px;
+    font-size:13px;color:#fff;cursor:pointer;
+    transition:background .15s,border-color .15s;letter-spacing:-.1px;
+  }
+  .role-pill:hover{background:rgba(255,255,255,0.2)}
+  .role-pill.active{background:#fff;color:var(--coral);border-color:#fff;font-weight:500}
+
+  .form-disclaimer{font-size:12px;color:rgba(255,255,255,0.65);letter-spacing:-.1px;line-height:1.5}
+
+  @media (max-width:520px){
+    .signup-form{flex-direction:column;padding:14px}
+    .signup-form input{width:100%;text-align:center}
+    .signup-form button{width:100%}
+  }
+
+  /* ── FOOTER ── */
+  footer{background:#fff;color:var(--gray6);padding:72px 0 40px;border-top:1px solid var(--gray2)}
+  .footer-grid{
+    display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px;
+  }
+  .footer-brand .logo{margin-bottom:14px}
+  .footer-tagline{font-size:14px;color:var(--gray6);letter-spacing:-.1px;line-height:1.5;max-width:280px}
+  .footer-col h4{
+    font-size:11px;letter-spacing:2px;text-transform:uppercase;
+    color:var(--gray9);font-weight:700;margin-bottom:18px;
+  }
+  .footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+  .footer-col a{
+    font-size:14px;color:var(--gray6);letter-spacing:-.1px;
+    transition:color .15s;
+  }
+  .footer-col a:hover{color:var(--coral)}
+  .footer-bottom{
+    border-top:1px solid var(--gray2);padding-top:28px;
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;
+    font-size:12px;color:var(--gray4);letter-spacing:-.1px;
+  }
+  .footer-legal{font-size:11px;color:var(--gray4);max-width:600px;line-height:1.5}
+  @media (max-width:880px){
+    .footer-grid{grid-template-columns:1fr 1fr;gap:36px}
+  }
+  @media (max-width:520px){
+    .footer-grid{grid-template-columns:1fr}
+  }
+
+  /* ── ANIMATIONS ── */
+  @media (prefers-reduced-motion:no-preference){
+    .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+    .reveal.in{opacity:1;transform:none}
+  }
+
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══ -->
+<header>
+  <div class="container nav-inner">
+    <a href="#" class="logo">
+      <div class="logo-icon"><span>r</span></div>
+      <span class="logo-word">rentsel</span>
+    </a>
+    <nav class="nav-links">
+      <a href="#nasil">Nasıl Çalışır</a>
+      <a href="#kiraci">Kiracılar</a>
+      <a href="#mulk">Mülk Sahipleri</a>
+      <a href="#partner">Partnerler</a>
+      <a href="#sss">SSS</a>
+      <a href="#cta" class="btn btn-primary">Erken Erişim →</a>
+    </nav>
+    <button class="menu-btn" aria-label="Menü">☰</button>
+  </div>
+</header>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="container hero-inner">
+    <div class="hero-eyebrow">
+      <span class="hero-dot"></span>
+      Türkiye'nin İlk Kira Depozito Sigortası &nbsp;·&nbsp; Beta Yakında
+    </div>
+    <h1 class="hero-title">
+      Ev tutmak, bir <span class="accent">ev sahibi</span> olmak<br>kadar zor olmamalı.
+    </h1>
+    <p class="hero-sub">
+      Rentsel, Türkiye'de kira sözleşmesinin iki tarafını da kazandıran ilk dijital depozito sigortası altyapısıdır. Kiracı için 3 aylık depozito yükünü ortadan kaldırır, mülk sahibi için enflasyona karşı korunan hasar teminatı sunar.
+    </p>
+    <div class="hero-ctas">
+      <a href="#cta" class="btn btn-primary">Erken Erişim Listesine Katıl →</a>
+      <a href="#nasil" class="btn btn-ghost">Nasıl Çalışıyor?</a>
+    </div>
+    <p class="hero-trust">Sigorta partnerimiz lisanslı bir Türk sigorta şirketi olacaktır. SEDDK düzenlemelerine tabi.</p>
+  </div>
+</section>
+
+<!-- ═══ STATS ═══ -->
+<section class="stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat">
+        <div class="stat-num">3 ay</div>
+        <p class="stat-lbl">Türkiye'de yasal depozito üst sınırı (TBK m.342)</p>
+      </div>
+      <div class="stat">
+        <div class="stat-num">₺75–120K</div>
+        <p class="stat-lbl">İstanbul'da ortalama bir 1+1 dairenin depozito tutarı</p>
+      </div>
+      <div class="stat">
+        <div class="stat-num">3–4 ay</div>
+        <p class="stat-lbl">Bu paranın karşılığı olan medyan hane gelir süresi</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PROBLEM ═══ -->
+<section class="problem">
+  <div class="container problem-inner">
+    <span class="eyebrow eyebrow-coral section-eyebrow">PROBLEM</span>
+    <h2 class="section-title">Türkiye'de kiracı olmak,<br>bir gecede 3 maaş ödemek demek.</h2>
+    <p class="problem-text">
+      Türk Borçlar Kanunu mülk sahibinin en fazla 3 aylık kira kadar depozito isteyebileceğini söyler. Kulağa makul gelir; ancak gerçekte bu, İstanbul'da ortalama bir 1+1 daire için cebinden bir anda <strong>₺75.000–₺120.000</strong> çıkarman demek. Bu rakam, ortalama bir Türk hanesinin <strong>3 ila 4 aylık tüm gelirine</strong> denk geliyor. Üstüne komisyon, taşınma ve ilk ay kirası eklendiğinde, ev tutmak çoğu insan için bir tasarruf operasyonu, çoğu zaman ise bir borçlanma operasyonu haline geliyor.
+    </p>
+    <p class="problem-text">
+      Mülk sahibinin tarafı da kolay değil. Aldığı 3 aylık depozito, evine gelen bir hasarı karşılamaya çoğu zaman yetmiyor — özellikle birkaç yıl önce alınmışsa. Enflasyonist ortamda 2 yıl önceki ₺30.000'lik depozito, bugünün hasar maliyetini karşılamıyor; mülk sahibi parayı banka hesabında tutmak zorunda olduğu için kullanamıyor da.
+    </p>
+    <div class="callout">
+      <p class="callout-text"><strong>Rentsel bu denklemi değiştirmek için kuruldu.</strong> Kiracı için küçük aylık prim, mülk sahibi için enflasyona karşı korunan hasar teminatı.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ HOW IT WORKS ═══ -->
+<section class="how" id="nasil">
+  <div class="container">
+    <div class="how-header">
+      <span class="eyebrow eyebrow-coral section-eyebrow">SÜREÇ</span>
+      <h2 class="section-title">3 dakikada başvur,<br>24 saatte cevabını al.</h2>
+    </div>
+    <div class="how-grid">
+      <div class="how-step">
+        <span class="step-num">01 — Başvur</span>
+        <h3 class="step-title">Bilgilerini yükle</h3>
+        <p class="step-text">Kimliğin, gelir belgen ve evin bilgilerini Rentsel paneline yükle. Süreç tamamen dijital, e-Devlet ile saniyeler içinde doğrulanır.</p>
+      </div>
+      <div class="how-step">
+        <span class="step-num">02 — Değerlendirme</span>
+        <h3 class="step-title">Sana özel teklif</h3>
+        <p class="step-text">Akıllı değerlendirme sistemimiz profilini analiz eder ve sana özel aylık prim teklifini hesaplar. Çoğu başvuru 24 saat içinde sonuçlanır.</p>
+      </div>
+      <div class="how-step">
+        <span class="step-num">03 — Eve Taşın</span>
+        <h3 class="step-title">Anahtarı al</h3>
+        <p class="step-text">Mülk sahibine sigorta belgeni ilet, sözleşmeyi imzala, anahtarı al. Depozito derdi yok, kefil derdi yok.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TENANT SECTION ═══ -->
+<section class="tenant" id="kiraci">
+  <div class="container">
+    <div class="two-col">
+      <div class="col-text">
+        <span class="eyebrow eyebrow-coral section-eyebrow">KİRACILAR İÇİN</span>
+        <h2 class="section-title">Birikiminiz cebinizde kalsın.</h2>
+        <p>Yasal olarak en fazla 3 aylık kira kadar depozito isteniyor — ama bu bile çoğu insan için yıllık birikimin neredeyse yarısı demek. İstanbul'da ortalama bir 1+1 için ₺75.000 ile ₺120.000 arası bir parayı, sırf eve taşınabilmek için bloke etmen gerekiyor. Bu para 1 ya da 2 yıl boyunca atıl şekilde bekliyor; sen ise yatırım, eğitim, evlilik gibi gerçek hayata harcayamıyorsun.</p>
+        <p>Rentsel ile sadece aylık küçük bir prim ödüyorsun — aylık kiranın küçük bir yüzdesi kadar. Birikimin senin elinde kalıyor.</p>
+        <ul class="check-list">
+          <li><span class="check"></span><span>Depozito için tek seferlik büyük ödeme yok</span></li>
+          <li><span class="check"></span><span>Kefil zorunluluğu yok</span></li>
+          <li><span class="check"></span><span>Düzenli prim ödemen pozitif kredi geçmişine dönüşür</span></li>
+          <li><span class="check"></span><span>Taşındığında pürüzsüz çıkış — depozito iade beklemek yok</span></li>
+          <li><span class="check"></span><span>%100 dijital başvuru, 24 saatte cevap</span></li>
+        </ul>
+      </div>
+      <div class="calc">
+        <p class="calc-title">Hesaplayıcı</p>
+        <p style="font-size:18px;font-weight:700;color:var(--gray9);letter-spacing:-.4px;margin-bottom:18px">Aylık kiran ne kadar?</p>
+        <div class="calc-input-wrap">
+          <span class="calc-input-prefix">₺</span>
+          <input type="text" class="calc-input" id="rentInput" value="30.000" inputmode="numeric">
+        </div>
+        <div class="calc-results">
+          <div class="calc-row">
+            <span class="calc-row-lbl">Yasal depozito (3 ay)</span>
+            <span class="calc-row-val" id="depositOut">₺90.000</span>
+          </div>
+          <div class="calc-row">
+            <span class="calc-row-lbl">Rentsel ile aylık prim</span>
+            <span class="calc-row-val" style="color:var(--coral)">Aylık kiranın küçük bir yüzdesi</span>
+          </div>
+          <div class="calc-row highlight">
+            <span class="calc-row-lbl">Cebinde kalan ✨</span>
+            <span class="calc-row-val" id="savedOut">₺90.000</span>
+          </div>
+        </div>
+        <p class="calc-note">Kesin tutar profil değerlendirmesi sonrası belirlenir.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ LANDLORD SECTION ═══ -->
+<section class="landlord" id="mulk">
+  <div class="container">
+    <div class="two-col">
+      <div class="visual-card">
+        <p class="visual-card-eyebrow">ENFLASYON KORUMASI</p>
+        <h3 style="font-size:22px;font-weight:700;letter-spacing:-.5px;color:var(--gray9);line-height:1.2;margin-bottom:8px">Geleneksel depozito vs. Rentsel teminatı</h3>
+        <p style="font-size:13px;color:var(--gray6);letter-spacing:-.1px;margin-bottom:18px">2 yıl önceki ₺30.000 kira için alınmış depozito, bugün hangi rakama denk gelir?</p>
+        <div class="compare-row">
+          <div class="compare-card bad">
+            <p class="compare-yr">Geleneksel</p>
+            <p class="compare-amt">₺30.000</p>
+            <p class="compare-desc">2 yıl önceki kira bedeline sabitlenmiş depozito</p>
+          </div>
+          <div class="compare-card good">
+            <p class="compare-yr">Rentsel</p>
+            <p class="compare-amt">₺~90.000+</p>
+            <p class="compare-desc">Çıkış tarihindeki güncel kiraya göre teminat</p>
+          </div>
+        </div>
+        <p class="visual-bottom">Yargıtay içtihatları, depozitonun yüksek enflasyon ortamında güncel kira bedeli üzerinden değerlendirilmesi yönündedir. Rentsel bu prensibi sigorta ürününe yerleştirir.</p>
+      </div>
+      <div class="col-text">
+        <span class="eyebrow eyebrow-coral section-eyebrow">MÜLK SAHİPLERİ İÇİN</span>
+        <h2 class="section-title">3 aylık depozito artık size yetmiyor mu?</h2>
+        <p>Türk Borçlar Kanunu mülk sahibinden en fazla 3 aylık kira kadar depozito alabilmeni şart koşuyor. Üstelik bu para kiracı adına vadeli hesaba bloke edilmek zorunda — yani sen de gerçekten kullanamıyorsun. Sorun şu: enflasyonist bir ortamda, 2 yıl önce alınan ₺30.000'lik depozito bugün ne hasarı karşılar, ne de gerçek bir güvence sağlar.</p>
+        <p>Rentsel ile durum farklı. Evine bir hasar gelirse, ödeme <strong style="color:var(--coral)">çıkış zamanındaki güncel kira bedeli</strong> üzerinden hesaplanan teminat tutarına kadar karşılanıyor. Üstelik mülk sahibine ödeme <strong>doğrudan Rentsel tarafından</strong> yapılıyor; siz aylarca depozito iadesi tartışması yapmak zorunda kalmıyorsunuz.</p>
+        <ul class="check-list">
+          <li><span class="check"></span><span><strong>Enflasyona karşı korunan hasar teminatı</strong> — Yargıtay içtihatlarıyla uyumlu</span></li>
+          <li><span class="check"></span><span>Çıkışta hasar tespit edilirse, ödeme size doğrudan Rentsel'den</span></li>
+          <li><span class="check"></span><span>Aylar süren depozito iade tartışmaları yok — bağımsız değerlendirme</span></li>
+          <li><span class="check"></span><span>Daha geniş kiracı havuzu — depozito engeli kalkınca evi daha hızlı kiralarsın</span></li>
+          <li><span class="check"></span><span>Bankada bloke edilen depozito derdi yok</span></li>
+          <li><span class="check"></span><span>Senin için ücretsiz — primi kiracı öder</span></li>
+        </ul>
+        <div class="scope-card" style="margin-top:32px">
+          <h3>Rentsel ne yapar, ne yapmaz?</h3>
+          <p>Rentsel kiracının evden çıkışı sırasında oluşabilecek hasarlara karşı sigorta teminatı sunar. Aylık kira tahsilatı veya kira ödeme garantisi ürünümüz değildir; aylık kira ilişkisi her zaman doğrudan kiracı ile aranızdadır.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PARTNERS ═══ -->
+<section class="partners" id="partner">
+  <div class="container">
+    <span class="eyebrow eyebrow-coral section-eyebrow" style="text-align:center;display:block">SİGORTA & EMLAK PARTNERLERİ İÇİN</span>
+    <h2 class="section-title">Yeni bir ürün kategorisi.<br>Hazır altyapı.</h2>
+    <p class="partners-intro">
+      Rentsel, lisanslı sigorta şirketleri için yeni bir dağıtım kanalı ve yeni bir ürün kategorisi açar — Türkiye'de henüz paketlenmemiş bir alan: depozito ikamesi ve hasar teminatı. Underwriting riskini paylaşır, tüm operasyonel yükü kendi tarafımızda toplarız.
+    </p>
+    <div class="partner-grid">
+      <div class="partner-card">
+        <h3>Sigorta şirketleri için</h3>
+        <p>Yeni bir B2B2C kanal, hazır KYC altyapısı, manuel claims validation süreçleri, gerçek zamanlı loss ratio paneli. Türkiye'de daha önce paketlenmemiş bir kategoriyi birlikte açalım.</p>
+      </div>
+      <div class="partner-card">
+        <h3>Emlak partnerleri için</h3>
+        <p>Mülk yönetim şirketleri, REIT'ler ve kurumsal emlakçılar için kiracı portföyüne entegre edilebilir bir ürün. Komisyon paylaşımı görüşülebilir.</p>
+      </div>
+    </div>
+    <div class="partners-cta">
+      <a href="mailto:partner@rentsel.com.tr" class="btn btn-white">Partnership Görüşmesi Talep Et →</a>
+      <p class="partners-cta-line">partner@rentsel.com.tr</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ WHY ═══ -->
+<section class="why">
+  <div class="container">
+    <div class="why-header">
+      <span class="eyebrow eyebrow-coral section-eyebrow">NEDEN RENTSEL</span>
+      <h2 class="section-title">Türkiye'nin kira ekosistemi için tasarlandı.</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L4 6v6c0 5 3.5 9.4 8 10 4.5-.6 8-5 8-10V6l-8-4z"/></svg>
+        </div>
+        <h3>Lisanslı sigorta arkalı</h3>
+        <p>Rentsel, lisanslı bir Türk sigorta şirketinin yetkilendirilmiş aracısı olarak çalışır. Tüm poliçeler SEDDK düzenlemesi altındadır.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <h3>KVKK uyumlu</h3>
+        <p>Kişisel veri güvenliği baştan tasarlandı. Veriler yurt içinde, ISO 27001 standartlarına uygun altyapıda saklanır.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </div>
+        <h3>Tamamen dijital</h3>
+        <p>e-Devlet entegrasyonu, dijital imza, anlık karar mekanizması. Şube yok, evrak yok, kuyruk yok.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3>İnsan dokunuşu nerede önemliyse, orada</h3>
+        <p>Hasar değerlendirmesi tamamen otomatize edilmez. Her talep operasyon ekibimiz tarafından bağımsız olarak incelenir — adil sonuç için.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FAQ ═══ -->
+<section class="faq" id="sss">
+  <div class="container">
+    <div class="faq-header">
+      <span class="eyebrow eyebrow-coral section-eyebrow">SIKÇA SORULAN SORULAR</span>
+      <h2 class="section-title">Merak ettikleriniz.</h2>
+    </div>
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary>Rentsel bir sigorta şirketi mi?<span class="faq-toggle">+</span></summary>
+        <div class="faq-body">Hayır, Rentsel lisanslı bir Türk sigorta şirketinin yetkilendirilmiş dağıtım ve teknoloji ortağıdır. Poliçeyi sigorta şirketi düzenler, biz dijital deneyimi ve operasyonu yönetiriz.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Rentsel kira ödemelerini de garanti ediyor mu?<span class="faq-toggle">+</span></summary>
+        <div class="faq-body">Hayır. Rentsel sadece kiracının evden çıkışı sırasında oluşabilecek hasarlar için sigorta teminatı sağlar; aylık kira ödemeleri kiracı ile mülk sahibi arasındaki klasik kira ilişkisi olarak devam eder. Bizim ürünümüz, geleneksel depozitonun yerine geçen bir hasar teminatıdır.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Rentsel'in primi ne kadar?<span class="faq-toggle">+</span></summary>
+        <div class="faq-body">Prim, profil değerlendirmesine göre kişiye özel hesaplanır ve aylık kiranızın küçük bir yüzdesi kadardır. Kesin tutarı başvurudan sonra görürsünüz — onaylamak zorunda değilsiniz.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Beta'ya ne zaman başlanacak?<span class="faq-toggle">+</span></summary>
+        <div class="faq-body">2026 yılı içinde sınırlı sayıda kullanıcıyla başlayacağız. Erken erişim listesine katılanlar ilk davet edilenler arasında olacak.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Mülk sahibimin Rentsel'i kabul etmesi gerekiyor mu?<span class="faq-toggle">+</span></summary>
+        <div class="faq-body">Evet. Sigorta belgesini mülk sahibine sunmanız ve onun da kabul etmesi gerekiyor. Süreçte sizi destekleriz; mülk sahibinizle iletişim için hazır materyallerimiz var.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Çıkışta evde bir hasar tespit edilirse ne olur?<span class="faq-toggle">+</span></summary>
+        <div class="faq-body">Mülk sahibi hasar bildirimi yapar, Rentsel operasyon ekibi bağımsız olarak değerlendirir. Hasar onaylanırsa, ödeme <strong>mülk sahibine doğrudan Rentsel tarafından yapılır</strong> — yasal depozito üst sınırı (3 aylık güncel kira bedeli) çerçevesinde. Sonrasında Rentsel sizinle yapılandırılmış bir geri ödeme planı için iletişime geçer. Bu yaklaşım, mülk sahibini bekletmez ve size makul bir geri ödeme süreci sağlar.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Hasar ödemesi neden "güncel" kira bedeli üzerinden hesaplanıyor?<span class="faq-toggle">+</span></summary>
+        <div class="faq-body">Türkiye'nin enflasyonist ortamında, 2 yıl önce ödenmiş bir depozitonun bugünün hasar maliyetini karşılaması mümkün değil. Yargıtay içtihatları da bu yönde gelişti. Rentsel bu prensibi ürün tasarımına yerleştirdi — hasar ödemesi, kiracının çıkış tarihindeki kira bedeline göre belirlenen yasal üst limite kadar yapılır.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Verilerim güvende mi?<span class="faq-toggle">+</span></summary>
+        <div class="faq-body">Evet. Tüm kişisel veriler KVKK uyumlu olarak işlenir ve yurt içinde saklanır. Verileriniz sadece sigorta değerlendirmesi için kullanılır, üçüncü taraflarla paylaşılmaz.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FINAL CTA ═══ -->
+<section class="final-cta" id="cta">
+  <div class="container final-inner">
+    <h2>Türkiye'de depozito modelini değiştirmeye var mısın?</h2>
+    <p class="subtext">Beta lansmanından önce kayıt olanlara öncelik tanıyoruz. Bir sürpriz değil, bir söz.</p>
+    <form class="signup-form" onsubmit="handleSignup(event)">
+      <input type="email" placeholder="E-posta adresin" required>
+      <button type="submit">Erken Erişimi Al →</button>
+    </form>
+    <div class="role-picker">
+      <button type="button" class="role-pill active" onclick="selectRole(this)">Kiracıyım</button>
+      <button type="button" class="role-pill" onclick="selectRole(this)">Mülk sahibiyim</button>
+      <button type="button" class="role-pill" onclick="selectRole(this)">Partner adayıyım</button>
+    </div>
+    <p class="form-disclaimer">E-posta adresinizi sadece Rentsel güncellemeleri için kullanırız. İstediğiniz zaman çıkabilirsiniz.</p>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo">
+          <div class="logo-icon"><span>r</span></div>
+          <span class="logo-word">rentsel</span>
+        </a>
+        <p class="footer-tagline">Türkiye'nin depozito sigortası altyapısı.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Şirket</h4>
+        <ul>
+          <li><a href="#">Hakkımızda</a></li>
+          <li><a href="#">Kariyer</a></li>
+          <li><a href="#">Basın</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Ürün</h4>
+        <ul>
+          <li><a href="#kiraci">Kiracılar</a></li>
+          <li><a href="#mulk">Mülk Sahipleri</a></li>
+          <li><a href="#partner">Partnerler</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Yardım</h4>
+        <ul>
+          <li><a href="#sss">SSS</a></li>
+          <li><a href="mailto:hello@rentsel.com.tr">İletişim</a></li>
+          <li><a href="#">Destek</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Rentsel Teknoloji A.Ş. · İstanbul, Türkiye · hello@rentsel.com.tr</span>
+      <div style="display:flex;gap:18px;flex-wrap:wrap">
+        <a href="#" style="font-size:12px">Kullanım Şartları</a>
+        <a href="#" style="font-size:12px">Gizlilik</a>
+        <a href="#" style="font-size:12px">KVKK</a>
+        <a href="#" style="font-size:12px">Çerez</a>
+      </div>
+    </div>
+    <p class="footer-legal" style="margin-top:18px">Rentsel, lisanslı sigorta şirketi adına yetkili dağıtım ortağıdır. SEDDK düzenlemelerine tabidir. Kira ödeme garantisi sunmaz; depozito ikamesi ve hasar teminatı ürünüdür.</p>
+  </div>
+</footer>
+
+<script>
+  // ── Calculator ──
+  const rentInput = document.getElementById('rentInput');
+  const depositOut = document.getElementById('depositOut');
+  const savedOut = document.getElementById('savedOut');
+
+  function fmt(n){ return '₺' + n.toLocaleString('tr-TR'); }
+
+  function updateCalc(){
+    let raw = rentInput.value.replace(/[^\d]/g,'');
+    let n = parseInt(raw||'0',10);
+    if(n>10000000) n=10000000;
+    rentInput.value = n ? n.toLocaleString('tr-TR') : '';
+    const deposit = n*3;
+    depositOut.textContent = fmt(deposit);
+    savedOut.textContent = fmt(deposit);
+  }
+  rentInput.addEventListener('input', updateCalc);
+  updateCalc();
+
+  // ── Role picker ──
+  function selectRole(el){
+    document.querySelectorAll('.role-pill').forEach(p=>p.classList.remove('active'));
+    el.classList.add('active');
+  }
+
+  // ── Signup form (placeholder — backend yok) ──
+  function handleSignup(e){
+    e.preventDefault();
+    const email = e.target.querySelector('input').value;
+    const role = document.querySelector('.role-pill.active').textContent;
+    alert('Teşekkürler! ' + email + ' adresini erken erişim listesine ekledik. (Demo — gerçek bağlantı henüz aktif değil.)');
+    e.target.reset();
+  }
+
+  // ── Reveal on scroll ──
+  if('IntersectionObserver' in window){
+    const obs = new IntersectionObserver((entries)=>{
+      entries.forEach(en=>{
+        if(en.isIntersecting){ en.target.classList.add('in'); obs.unobserve(en.target); }
+      });
+    }, {threshold:0.12});
+    document.querySelectorAll('.problem-inner, .how-step, .calc, .visual-card, .partner-card, .why-card, .faq-item, .final-inner').forEach(el=>{
+      el.classList.add('reveal'); obs.observe(el);
+    });
+  }
+</script>
+
+</body>
+</html>
